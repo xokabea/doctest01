@@ -5,4 +5,6 @@ services:
     ports:
      - "80:80"
     volumes:
-     - "./web01/
+     - "./web01/html/:/var/www/html"
+    container_name: "web01"
+
