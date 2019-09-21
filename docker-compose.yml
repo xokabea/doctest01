@@ -5,6 +5,18 @@ services:
     ports:
      - "80:80"
     volumes:
-     - "./web01/html/:/var/www/html"
+     - "$HOME/doctest01/web01/html/:/var/www/html"
+    depends_on:
+     - "db01"
     container_name: "web01"
 
+  db01:
+    image: mariadb
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+    ports:
+     - "3306:3306"
+    volumes:
+     - "$HOME/doctest01/db01/db-data:/var/lib/mysql"
+    container_name: "db01"
