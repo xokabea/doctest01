@@ -1,22 +1,33 @@
-version: "3"
+# Use root/example as user/password credentials
+version: '3.1'
+
 services:
-  web01:
-    build: ./web01/build
-    ports:
-     - "80:80"
-    volumes:
-     - "$HOME/doctest01/web01/html/:/var/www/html"
-    depends_on:
-     - "db01"
-    container_name: "web01"
+
+services:
 
   db01:
     image: mariadb
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: example
-    ports:
-     - "3306:3306"
+      TZ: 'Asia/Tokyo'
     volumes:
-     - "$HOME/doctest01/db01/db-data:/var/lib/mysql"
+     - "~/doctest01/db01/db-data:/var/lib/mysql"
     container_name: "db01"
+
+  adminer01:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+    container_name: "adminer01"
+
+  web01:
+    build: ./web01/build
+    restart: always
+    ports:
+      - 80:80
+    volumes:
+     - "~/doctest01/web01/html/:/var/www/html"
+    container_name: "web01"
+

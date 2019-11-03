@@ -16,17 +16,14 @@ CMD ["/usr/sbin/init"]
 ###RUN yum -y update 
 RUN yum -y groupinstall base
 
-### 外部リポジトリ(EPEL, Remi)を追加
 RUN yum -y install epel-release
 RUN rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
 
-### apache phpパッケージのインストール
 RUN yum -y install httpd httpd-devel
 RUN rm -f /etc/httpd/conf.d/welcome.conf
 RUN yum -y install --enablerepo=remi,remi-php70 php php-devel php-mbstring php-pdo php-gd php-pear
 RUN yum -y install zip unzip
 
-# composerのインストール
 #RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 #RUN composer update
 #RUN composer require twbs/bootstrap:4.3.1
